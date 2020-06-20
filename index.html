@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://randojs.com/1.0.0.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Password Generator</h1>
+      </header>
+      <div class="card">
+        <div class="card-header">
+          <h2>Generate a Password</h2>
+        </div>
+        <div class="card-body">
+          <textarea
+            readonly
+            id="password"
+            placeholder="Your Secure Password"
+            aria-label="Generated Password"
+          ></textarea>
+        </div>
+        <div class="card-footer">
+          <button id="generate" onClick="promptUser()" class="btn">
+            Generate Password
+          </button>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div id="promptModal" class="modal">
+      <div class="modal-content">
+        <span id="close" class="close">&times;</span>
+        <p id="passwordPrompt"></p>
+        <form>
+          <input
+            type="number"
+            min="8"
+            max="128"
+            id="lengthInput"
+          >
+          <p id=errorMsgLength></p>
+          <div id="charTypePrompt" class="charTypes">
+            <input type="checkbox" id="lowercaseChars" name="lowercaseChars" value="lowercaseCharacters">
+            <label for="lowercaseCharacters">Lowercase Characters</label><br>
+            <input type="checkbox" id="uppercaseChars" name="uppercaseChars" value="uppercaseCharacters">
+            <label for="uppercaseCharacters">Uppercase Characters</label><br>
+            <input type="checkbox" id="specialChars" name="specialChars" value="specialCharacters">
+            <label for="specialCharacters">Special Characters</label><br>
+            <input type="checkbox" id="numericChars" name="numericChars" value="numericCharacters">
+            <label for="numericCharacters">Numeric Characters</label>
+          </div>
+          <p id=errorMsgType></p>
+        </form>
+        <button onclick="cancelProcess()" id="cancelBtn">Cancel</button>
+        <button onclick="continueProcess()" disabled="true" id="continueBtn">Next</button>
+      </div>
+    <script src="script.js"></script>
+  </body>
+</html>
