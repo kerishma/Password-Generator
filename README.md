@@ -22,7 +22,7 @@ https://kerishma.github.io/Password-Generator/.
 
 ### Screenshot 
 
-![password generator demo](./Assets/03-javascript-homework-demo.png)
+![password generator demo](https://github.com/kerishma/Password-Generator/blob/master/Password.png)
 
 ## Owner
 Kerishma Tarin
