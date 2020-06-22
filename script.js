@@ -46,11 +46,6 @@ function promptUser() {
 function submitBtnFunc(event) {
   // We override the default form submission button behaviour; preventing
   event.preventDefault();
-
-  // Jquery, we validate on button click
-  // validation for the checkboxes
-  $(document).ready(function () {
-    $("#submit").click(function () {
       // we check the length here for how many boxes are checked
       checked = $("input[type=checkbox]:checked").length;
       if (!checked) {
@@ -59,8 +54,7 @@ function submitBtnFunc(event) {
         errMessageType.innerHTML = "";
         writePassword();
       }
-    });
-  });
+ 
 }
 
 // Write password to the #password input
