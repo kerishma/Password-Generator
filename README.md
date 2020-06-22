@@ -16,7 +16,7 @@ SO THAT I can create a strong password that provides greater security
 * JavaScript - modals
 
 ## Deployed link
-
+https://kerishma.github.io/Password-Generator/.
 
 
 
