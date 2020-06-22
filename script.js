@@ -1,27 +1,67 @@
 // Assignment Code
-const generateBtn = document.querySelector("#generate");
-const nextBtn = document.getElementById("continueProcess");
-const continueBtn = document.getElementById("continueBtn");
 const inputValue = document.getElementById("lengthInput");
-const errMessageLength = document.getElementById("errorMsgLength");
 const errMessageType = document.getElementById("errorMsgType");
 const lowerChars = document.getElementById("lowercaseChars");
 const upperChars = document.getElementById("uppercaseChars");
 const specialChars = document.getElementById("specialChars");
 const numericChars = document.getElementById("numericChars");
-const passwordLength =
-  "Please choose or enter the length of the password (8 to 128 characters)";
-const passwordCharacter =
-  "Please choose from the following characters to include in the password";
+const form = document.getElementById("form");
 
 // Get the modal by the element ID, in the HTML
 const modal = document.getElementById("promptModal");
 
-// Get the character types prompt by ID, in the HTML
-const charTypes = document.getElementById("charTypePrompt");
-
 // Get the <span> element by ID that closes the modal (x) icon
 const span = document.getElementById("close");
+
+function promptUser() {
+  form.reset();
+  inputValue.value = 0;
+
+  // We override the style for the Modal to display it
+  modal.style.display = "block";
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+    errMessageType.innerHTML = "";
+    form.reset();
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+      errMessageType.innerHTML = "";
+      form.reset();
+    }
+  };
+
+  // Listens to the button click
+  // Passes the Event object which contains
+  // all the necessary data that is in the form
+  // https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+  form.addEventListener("submit", submitBtnFunc);
+}
+
+function submitBtnFunc(event) {
+  // We override the default form submission button behaviour; preventing
+  event.preventDefault();
+
+  // Jquery, we validate on button click
+  // validation for the checkboxes
+  $(document).ready(function () {
+    $("#submit").click(function () {
+      // we check the length here for how many boxes are checked
+      checked = $("input[type=checkbox]:checked").length;
+      if (!checked) {
+        errMessageType.innerHTML = "Please check one of the boxes";
+      } else {
+        errMessageType.innerHTML = "";
+        writePassword();
+      }
+    });
+  });
+}
 
 // Write password to the #password input
 function writePassword() {
@@ -31,6 +71,10 @@ function writePassword() {
   var upperCase, lowerCase, numeric, specialChar;
 
   var allowed = {};
+
+  // We check the checkboxes here to see which ones are checked
+  // we then send it off as a Object because of how the package expects it
+  // Math.Random is not a true random generator so we used a package
 
   if (upperChars.checked == true) {
     upperCase = rando((allowed.upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
@@ -45,81 +89,15 @@ function writePassword() {
     specialChar = rando((allowed.specialChars = "<>,;.:-_+#*!,$%&()"));
   }
 
+  // We get the randomly generated password here from the package
+  // as a string and assign it to the variable declared in the beginning
+
   for (i = 1; i <= inputValue.value; i++) {
     password += rando(rando(allowed).value);
   }
 
+  // Remove any spaces in the password
   password = randoSequence(password).join("");
   passwordText.value = password;
   modal.style.display = "none";
-}
-
-function cancelProcess() {
-  resetFields();
-  continueBtn.disabled = true;
-  charTypes.style.display = "none";
-  continueBtn.innerHTML = "Next";
-  modal.style.display = "none";
-}
-
-function resetFields() {
-  charTypes.style.display = "none";
-  continueBtn.innerHTML = "Next";
-  errMessageLength.innerHTML = "";
-  inputValue.value = "";
-  errMessageType.innerHTML = "";
-}
-
-function continueProcess(e) {
-  charTypes.style.display = "block";
-  continueBtn.disabled = true;
-  continueBtn.innerHTML = "Generate Password!";
-  if (
-    document.querySelectorAll('input[type="checkbox"]:checked').length === 0
-  ) {
-    errMessageType.innerHTML = "Please check one of the boxes";
-  } else {
-    errMessageType.innerHTML = "";
-    continueBtn.disabled = false;
-    continueBtn.onclick = function () {
-      writePassword();
-    };
-  }
-}
-
-function validateLength(e) {
-  const val = e.target.value;
-  if (val < 8 || val > 128) {
-    continueBtn.disabled = true;
-    errMessageLength.innerHTML = "Please correct the amount";
-  } else {
-    errMessageLength.innerHTML = "";
-    continueBtn.disabled = false;
-  }
-}
-
-function promptUser() {
-  // We override the style for the Modal to display it
-  modal.style.display = "block";
-  document.getElementById("passwordPrompt").innerHTML = passwordLength;
-
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function () {
-    modal.style.display = "none";
-  };
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function (event) {
-    if (event.target == modal) {
-      cancelProcess();
-      resetFields();
-      modal.style.display = "none";
-    }
-  };
-
-  inputValue.addEventListener("input", validateLength);
-
-  document.querySelector("#charTypePrompt").onclick = function (event) {
-    continueProcess(event);
-  };
 }

@@ -7,6 +7,7 @@
     <title>Password Generator</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://randojs.com/1.0.0.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
   </head>
   <body>
     <div class="wrapper">
@@ -36,29 +37,22 @@
     <div id="promptModal" class="modal">
       <div class="modal-content">
         <span id="close" class="close">&times;</span>
-        <p id="passwordPrompt"></p>
-        <form>
-          <input
-            type="number"
-            min="8"
-            max="128"
-            id="lengthInput"
-          >
-          <p id=errorMsgLength></p>
-          <div id="charTypePrompt" class="charTypes">
-            <input type="checkbox" id="lowercaseChars" name="lowercaseChars" value="lowercaseCharacters">
-            <label for="lowercaseCharacters">Lowercase Characters</label><br>
-            <input type="checkbox" id="uppercaseChars" name="uppercaseChars" value="uppercaseCharacters">
-            <label for="uppercaseCharacters">Uppercase Characters</label><br>
-            <input type="checkbox" id="specialChars" name="specialChars" value="specialCharacters">
-            <label for="specialCharacters">Special Characters</label><br>
-            <input type="checkbox" id="numericChars" name="numericChars" value="numericCharacters">
-            <label for="numericCharacters">Numeric Characters</label>
-          </div>
+        <h4>Please choose or enter the length of the password (8 to 128 characters)</h4>
+        <form id="form">
+          <input type="number" min="8" max="128" name="lengthInput" id="lengthInput">
+          <label for="lengthInput">Length of desired password</label><br>
+          <h4>Please choose from the following characters to include in the password</h4>
+          <input type="checkbox" id="lowercaseChars" name="lowercaseChars" value="lowercaseCharacters">
+          <label for="lowercaseCharacters">Lowercase Characters</label><br>
+          <input type="checkbox" id="uppercaseChars" name="uppercaseChars" value="uppercaseCharacters" >
+          <label for="uppercaseCharacters">Uppercase Characters</label><br>
+          <input type="checkbox" id="specialChars" name="specialChars" value="specialCharacters" >
+          <label for="specialCharacters">Special Characters</label><br>
+          <input type="checkbox" id="numericChars" name="numericChars" value="numericCharacters" >
+          <label for="numericCharacters">Numeric Characters</label>
           <p id=errorMsgType></p>
+          <button type="submit" id="submit">Generate Password</button>
         </form>
-        <button onclick="cancelProcess()" id="cancelBtn">Cancel</button>
-        <button onclick="continueProcess()" disabled="true" id="continueBtn">Next</button>
       </div>
     <script src="script.js"></script>
   </body>
